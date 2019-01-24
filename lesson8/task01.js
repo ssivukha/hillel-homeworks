@@ -43,7 +43,6 @@ function sortArr(arr, letter) {
         return item.split(letter).length - 1;
     })
 
-
     return res.sort(function(a, b) {
         if (a > b) {
             return -1;
