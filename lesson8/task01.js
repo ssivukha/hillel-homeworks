@@ -51,6 +51,8 @@ function sortArr(arr, letter) {
             return 1;
         }
     });
+
+    //test
 }
 
 let arr3 = sortArr(['little', 'hello', 'test', 'world'], 'l');
