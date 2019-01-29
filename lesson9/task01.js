@@ -14,113 +14,85 @@
 
 */
 
-let cocktail = {
-    name: 'name',
-    ingridients: [
-        {name: 'name', price: 5}
-    ],
-    isAlcohol: true || false,
-    type: 'long' || 'short',
+
+// прототип коктейля
+const cocktailProto = {
+    // метод подсчета суммы ингридиентов
     getPrice: function() {
-        let result = this.ingridients.reduce(function (prev, current){
-            let res = prev.price + current.price
-            //console.log(current)
-            return{
-                price: res
-            }
-        })
-        return result
+        return this.ingredients.reduce(function(sum, ingredient) {
+            return sum + ingredient.price
+        }, 0)
     }
 }
 
 
-let pinaColada = Object.create(cocktail);
-pinaColada.name = 'pina colada';
-pinaColada.ingridients = [
-    {name: 'Rom', price: 5},
-    {name: 'Juice', price: 2},
-    {name: 'Liquor', price: 4},
-];
-pinaColada.isAlcohol = true;
-pinaColada.type = 'long';
-pinaColada.getPrice()
+// функция для создания коктейля
+function createCocktail(name, ingredients, isAlcohol, type) {
+    let obj = Object.create(cocktailProto);
+    obj.name = name;
+    obj.ingredients = ingredients;
+    obj.isAlcohol = isAlcohol;
+    obj.type = type;
+    return obj;
+}
 
-console.log(pinaColada)
-console.log(pinaColada.getPrice())
-
-
-
-let blodyMary = Object.create(cocktail);
-blodyMary.name = 'Bloody Mary';
-blodyMary.ingridients = [
-    {name: 'Vodka', price: 4},
-    {name: 'Juice', price: 2},
-    {name: 'Solt', price: 1},
-];
-blodyMary.isAlcohol = true;
-blodyMary.type = 'short';
-blodyMary.getPrice()
-
-console.log(blodyMary)
-console.log(blodyMary.getPrice())
+// создаем коктейли
+let margarita = createCocktail('margarita', [{name: 'tequila', price: 5},{name: 'lime', price: 3} ], true, 'long')
+let oldFashioned = createCocktail('old fashioned', [{name: 'wiskey', price: 6},{name: 'bitter', price: 3} ], true, 'long')
+let bloodyMary = createCocktail('Bloody Mary', [{name: 'vodka', price: 4},{name: 'juice', price: 2} ], true, 'short')
+let orangeJuice = createCocktail('Orange Jiuce', [{name: 'juice', price: 3}], false, 'long')
 
 
-
-let orangeJuice = Object.create(cocktail);
-orangeJuice.name = 'Orange Juice';
-orangeJuice.ingridients = [
-    {name: 'Juice', price: 2}
-];
-orangeJuice.isAlcohol = false;
-orangeJuice.type = 'long';
-orangeJuice.getPrice()
-
-console.log(orangeJuice)
-console.log(orangeJuice.getPrice())
-
-
-
-
-let cocktails = {
-    items: [],
-    add: function copy(value) {
-        this.items.push(value)
+// прототип списка коктейлей
+const cocktailsListProto = {
+    add: function (cocktail) {
+        this.list.push(cocktail)
     },
-    removeByName: function(value) {
-        let index = this.items.indexOf(value);
+    remove: function (cocktail) {
+        let index = this.list.indexOf(cocktail);
         if (index != -1) {
-            return this.items.splice(index, 1)
+           return this.list.splice(index, 1)
         }
-        return items;
+        return list;
     },
-    showAlcohol: function() {
-        let result = this.items.map(function (prev, current) {
-            if (prev.isAlcohol && current.isAlcohol === true) 
-            return this.items
-        })
-        return result;
-
-        //if (this.items.isAlcohol === true) {
-        //    return this.items
-        //}
+    showAlcohol: function () {
+        return this.list.filter(item => item.isAlcohol === true)
     },
-    showNonAlcohol: function() {
-
+    showNonAlcohol: function () {
+        return this.list.filter(item => item.isAlcohol === false)
     },
-    showCocktails: function() {
-        return this.items
+    getAll: function () {
+        return this.list
     }
 }
 
-cocktails.add(pinaColada)
-cocktails.add(blodyMary)
-cocktails.add(orangeJuice)
-console.log(cocktails.showCocktails())
+// функция создания списка коктейлей
+function createCoctailsList () {
+    return Object.create(cocktailsListProto, {
+        list: {
+            value: [],
+            enumerable: true,
+            writable: true,
+            configurable: true
+        }
+    });
+}
 
+// создаем список коктейлей с помощью функции
+const myCocktailList = createCoctailsList()
 
-cocktails.removeByName(blodyMary)
-console.log(cocktails.showCocktails())
+// добавляем созданные ранее коктейли в список коктейлей
+myCocktailList.add(margarita)
+myCocktailList.add(oldFashioned)
+myCocktailList.add(bloodyMary)
+myCocktailList.add(orangeJuice)
+console.log(myCocktailList.getAll())
 
+myCocktailList.remove(bloodyMary)
+console.log(myCocktailList.getAll())
 
-cocktails.showAlcohol()
-console.log(cocktails.showAlcohol())
+myCocktailList.showAlcohol()
+console.log(myCocktailList.showAlcohol())
+
+myCocktailList.showNonAlcohol()
+console.log(myCocktailList.showNonAlcohol())
