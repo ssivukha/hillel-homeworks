@@ -7,10 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "http-static"
   },
-  "author": "ssivukha",
+  "author": "adiachenko",
   "license": "MIT",
   "dependencies": {
-    "http-static": "^0.1.1",
     "lodash": "^4.17.11"
   },
   "devDependencies": {
