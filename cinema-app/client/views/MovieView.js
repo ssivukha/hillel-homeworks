@@ -5,7 +5,7 @@ export default class MovieView extends View {
     }
     render () {
         this.element.innerHTML = `
-        	<a href="#" class="movie" data-id="${this.model.id}">
+        	<a href="#movies/${this.model.id}" class="movie" data-id="${this.model.id}">
         		<img src="${this.model.poster}">
         		<strong class="name" >${this.model.name}</strong>
         	</a>
