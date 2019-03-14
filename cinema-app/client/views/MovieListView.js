@@ -12,33 +12,9 @@ export default class MovieListView extends View {
                     className: 'movie-item'
                 }))
             })
-            //this.delegateEvents();
         })
     }
-    /*delegateEvents () {
-        this.element.addEventListener('click', (e)=> {
-            e.preventDefault();
-            const target = e.target;       
-            
-            // console.log(e)
-            if (target.parentElement.classList.contains('movie')) {
-                this.detailElement.setMovie(this.model.getMovieById(target.parentElement.dataset.id))
-            }
-        });
-        const addButton = document.querySelector('#add-new');
-        addButton.addEventListener('click', this.addMovie.bind(this));
-    }
-    addMovie () {
-        const movie = {
-            name: 'New Movie',
-            id: '22'
-        }
-        this.element.appendChild(new MovieView({
-            model: movie
-        }).render().element)
-    }*/
     render() {
-        //this.element.innerHTML = '<button id="add-new" type="button">Add new</button>';
         this.movieViews.forEach(view => {
             this.element.appendChild(view.render().element)
         })
