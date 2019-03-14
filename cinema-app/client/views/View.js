@@ -1,6 +1,6 @@
 export default class View {
     constructor (options) {
-        const {model, tagName='div', el, className} = options;
+        const {model, tagName='div', el, className='movies-holder'} = options;
         this.tagName = tagName;
         this.element = el || document.createElement(this.tagName);
         this.element.classList.add(className);
